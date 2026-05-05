@@ -1,5 +1,6 @@
 
 using FarouqsRecordShop.Models;
+using FarouqsRecordShop.Repository;
 using Microsoft.EntityFrameworkCore;
 
 namespace FarouqsRecordShop
@@ -18,6 +19,7 @@ namespace FarouqsRecordShop
             builder.Services.AddSwaggerGen();
             builder.Services.AddDbContext<RecordShopContext>(options =>
                 options.UseInMemoryDatabase("RecordShopDb"));
+            builder.Services.AddScoped<IAlbumRepository, AlbumRepository>();
 
             var app = builder.Build();
 
