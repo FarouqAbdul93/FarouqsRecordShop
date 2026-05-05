@@ -15,7 +15,7 @@ namespace FarouqsRecordShop.Tests.ServiceTests
 
             mockRepo.Setup(r => r.GetAllAlbums()).Returns(new List<Album>
             {
-                new Album { Title = "Abbey Road", Artist = "The Beatles", Genre = "Rock", ReleaseYear = 1969, Stock = 5 },
+                new Album { Title = "The Documentary", Artist = "The Game", Genre = "Hip-Hop", ReleaseYear = 2005, Stock = 5 },
                 new Album { Title = "Thriller", Artist = "Michael Jackson", Genre = "Pop", ReleaseYear = 1982, Stock = 3 }
             });
 
@@ -24,6 +24,29 @@ namespace FarouqsRecordShop.Tests.ServiceTests
             var result = service.GetAllAlbums();
 
             result.Count.ShouldBe(2);
+        }
+
+        [Test]
+        public void GetAlbumById_ReturnsCorrectAlbum()
+        {
+            var mockRepo = new Mock<IAlbumRepository>();
+
+            mockRepo.Setup(r => r.GetAlbumById(1)).Returns(new Album
+            {
+                Id = 1,
+                Title = "The Documentary",
+                Artist = "The Game",
+                Genre = "Hip-Hop",
+                ReleaseYear = 2005,
+                Stock = 5
+            });
+
+            var service = new AlbumService(mockRepo.Object);
+
+            var result = service.GetAlbumById(1);
+
+            result.ShouldNotBeNull();
+            result.Title.ShouldBe("The Documentary");
         }
     }
 }

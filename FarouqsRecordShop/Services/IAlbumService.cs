@@ -5,5 +5,6 @@ namespace FarouqsRecordShop.Services
     public interface IAlbumService
     {
         List<Album> GetAllAlbums();
+        Album? GetAlbumById(int id);
     }
 }

@@ -23,7 +23,7 @@ namespace FarouqsRecordShop.Tests.RepositoryTests
 
             context.Albums.AddRange(new List<Album>
             {
-                new Album { Title = "Abbey Road", Artist = "The Beatles", Genre = "Rock", ReleaseYear = 1969, Stock = 5 },
+                new Album { Title = "The Documentary", Artist = "The Game", Genre = "Hip-Hop", ReleaseYear = 2005, Stock = 5 },
                 new Album { Title = "Thriller", Artist = "Michael Jackson", Genre = "Pop", ReleaseYear = 1982, Stock = 3 }
             });
             context.SaveChanges();
@@ -33,6 +33,22 @@ namespace FarouqsRecordShop.Tests.RepositoryTests
             var result = repo.GetAllAlbums();
 
             result.Count.ShouldBe(2);
+        }
+
+        [Test]
+        public void GetAlbumById_ReturnsCorrectAlbum()
+        {
+            var context = GetInMemoryContext();
+
+            context.Albums.Add(new Album { Title = "The Documentary", Artist = "The Game", Genre = "Hip-Hop", ReleaseYear = 2005, Stock = 5 });
+            context.SaveChanges();
+
+            var repo = new AlbumRepository(context);
+
+            var result = repo.GetAlbumById(1);
+
+            result.ShouldNotBeNull();
+            result.Title.ShouldBe("The Documentary");
         }
     }
 }

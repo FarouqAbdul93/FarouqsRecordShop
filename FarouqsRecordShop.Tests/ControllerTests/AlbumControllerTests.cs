@@ -16,7 +16,7 @@ namespace FarouqsRecordShop.Tests.ControllerTests
 
             mockService.Setup(s => s.GetAllAlbums()).Returns(new List<Album>
             {
-                new Album { Title = "Abbey Road", Artist = "The Beatles", Genre = "Rock", ReleaseYear = 1969, Stock = 5 },
+                new Album { Title = "The Documentary", Artist = "The Game", Genre = "Hip-Hop", ReleaseYear = 2005, Stock = 5 },
                 new Album { Title = "Thriller", Artist = "Michael Jackson", Genre = "Pop", ReleaseYear = 1982, Stock = 3 }
             });
 
@@ -30,6 +30,49 @@ namespace FarouqsRecordShop.Tests.ControllerTests
 
             var albums = okResult.Value as List<Album>;
             albums.Count.ShouldBe(2);
+        }
+
+        [Test]
+        public void GetAlbumById_Returns200WithAlbum()
+        {
+            var mockService = new Mock<IAlbumService>();
+
+            mockService.Setup(s => s.GetAlbumById(1)).Returns(new Album
+            {
+                Id = 1,
+                Title = "The Documentary",
+                Artist = "The Game",
+                Genre = "Hip-Hop",
+                ReleaseYear = 2005,
+                Stock = 5
+            });
+
+            var controller = new AlbumController(mockService.Object);
+
+            var result = controller.GetAlbumById(1);
+
+            var okResult = result.Result as OkObjectResult;
+            okResult.ShouldNotBeNull();
+            okResult.StatusCode.ShouldBe(200);
+
+            var album = okResult.Value as Album;
+            album.Title.ShouldBe("The Documentary");
+        }
+
+        [Test]
+        public void GetAlbumById_Returns404WhenNotFound()
+        {
+            var mockService = new Mock<IAlbumService>();
+
+            mockService.Setup(s => s.GetAlbumById(99)).Returns((Album?)null);
+
+            var controller = new AlbumController(mockService.Object);
+
+            var result = controller.GetAlbumById(99);
+
+            var notFoundResult = result.Result as NotFoundResult;
+            notFoundResult.ShouldNotBeNull();
+            notFoundResult.StatusCode.ShouldBe(404);
         }
     }
 }

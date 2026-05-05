@@ -5,5 +5,7 @@ namespace FarouqsRecordShop.Repository
     public interface IAlbumRepository
     {
         List<Album> GetAllAlbums();
+
+        Album? GetAlbumById(int id);
     }
 }

@@ -16,5 +16,10 @@ namespace FarouqsRecordShop.Services
         {
             return _repository.GetAllAlbums();
         }
+
+        public Album? GetAlbumById(int id)
+        {
+            return _repository.GetAlbumById(id);
+        }
     }
 }

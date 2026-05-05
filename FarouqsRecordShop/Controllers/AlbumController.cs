@@ -21,5 +21,18 @@ namespace FarouqsRecordShop.Controllers
             var albums = _service.GetAllAlbums();
             return Ok(albums);
         }
+
+        [HttpGet("{id}")]
+        public ActionResult<Album> GetAlbumById(int id)
+        {
+            var album = _service.GetAlbumById(id);
+
+            if (album == null)
+            {
+                return NotFound();
+            }
+
+            return Ok(album);
+        }
     }
 }
