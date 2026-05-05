@@ -48,5 +48,22 @@ namespace FarouqsRecordShop.Tests.ServiceTests
             result.ShouldNotBeNull();
             result.Title.ShouldBe("The Documentary");
         }
+
+        [Test]
+        public void AddAlbum_ReturnsNewAlbum()
+        {
+            var mockRepo = new Mock<IAlbumRepository>();
+
+            var newAlbum = new Album { Title = "Konvicted", Artist = "Akon", Genre = "R&B", ReleaseYear = 2006, Stock = 5 };
+
+            mockRepo.Setup(r => r.AddAlbum(newAlbum)).Returns(newAlbum);
+
+            var service = new AlbumService(mockRepo.Object);
+
+            var result = service.AddAlbum(newAlbum);
+
+            result.ShouldNotBeNull();
+            result.Title.ShouldBe("Konvicted");
+        }
     }
 }

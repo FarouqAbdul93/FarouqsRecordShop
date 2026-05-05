@@ -34,5 +34,12 @@ namespace FarouqsRecordShop.Controllers
 
             return Ok(album);
         }
+
+        [HttpPost]
+        public ActionResult<Album> AddAlbum([FromBody] Album album)
+        {
+            var newAlbum = _service.AddAlbum(album);
+            return CreatedAtAction(nameof(GetAlbumById), new { id = newAlbum.Id }, newAlbum);
+        }
     }
 }

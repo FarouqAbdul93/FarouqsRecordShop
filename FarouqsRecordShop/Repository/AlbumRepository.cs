@@ -20,5 +20,12 @@ namespace FarouqsRecordShop.Repository
         {
             return _context.Albums.FirstOrDefault(a => a.Id == id);
         }
+
+        public Album AddAlbum(Album album)
+        {
+            _context.Albums.Add(album);
+            _context.SaveChanges();
+            return album;
+        }
     }
 }

@@ -21,5 +21,10 @@ namespace FarouqsRecordShop.Services
         {
             return _repository.GetAlbumById(id);
         }
+
+        public Album AddAlbum(Album album)
+        {
+            return _repository.AddAlbum(album);
+        }
     }
 }

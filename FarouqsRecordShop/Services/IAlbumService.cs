@@ -6,5 +6,6 @@ namespace FarouqsRecordShop.Services
     {
         List<Album> GetAllAlbums();
         Album? GetAlbumById(int id);
+        Album AddAlbum(Album album);
     }
 }

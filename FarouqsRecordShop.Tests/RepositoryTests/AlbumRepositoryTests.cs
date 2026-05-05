@@ -50,5 +50,20 @@ namespace FarouqsRecordShop.Tests.RepositoryTests
             result.ShouldNotBeNull();
             result.Title.ShouldBe("The Documentary");
         }
+
+        [Test]
+        public void AddAlbum_AddsAndReturnsAlbum()
+        {
+            var context = GetInMemoryContext();
+            var repo = new AlbumRepository(context);
+
+            var newAlbum = new Album { Title = "Konvicted", Artist = "Akon", Genre = "R&B", ReleaseYear = 2006, Stock = 5 };
+
+            var result = repo.AddAlbum(newAlbum);
+
+            result.ShouldNotBeNull();
+            result.Title.ShouldBe("Konvicted");
+            context.Albums.Count().ShouldBe(1);
+        }
     }
 }

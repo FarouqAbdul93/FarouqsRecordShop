@@ -74,5 +74,26 @@ namespace FarouqsRecordShop.Tests.ControllerTests
             notFoundResult.ShouldNotBeNull();
             notFoundResult.StatusCode.ShouldBe(404);
         }
+
+        [Test]
+        public void AddAlbum_Returns201WithNewAlbum()
+        {
+            var mockService = new Mock<IAlbumService>();
+
+            var newAlbum = new Album { Id = 1, Title = "Konvicted", Artist = "Akon", Genre = "R&B", ReleaseYear = 2006, Stock = 5 };
+
+            mockService.Setup(s => s.AddAlbum(newAlbum)).Returns(newAlbum);
+
+            var controller = new AlbumController(mockService.Object);
+
+            var result = controller.AddAlbum(newAlbum);
+
+            var createdResult = result.Result as CreatedAtActionResult;
+            createdResult.ShouldNotBeNull();
+            createdResult.StatusCode.ShouldBe(201);
+
+            var album = createdResult.Value as Album;
+            album.Title.ShouldBe("Konvicted");
+        }
     }
 }
