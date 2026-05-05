@@ -1,6 +1,7 @@
 
 using FarouqsRecordShop.Models;
 using FarouqsRecordShop.Repository;
+using FarouqsRecordShop.Services;
 using Microsoft.EntityFrameworkCore;
 
 namespace FarouqsRecordShop
@@ -20,7 +21,7 @@ namespace FarouqsRecordShop
             builder.Services.AddDbContext<RecordShopContext>(options =>
                 options.UseInMemoryDatabase("RecordShopDb"));
             builder.Services.AddScoped<IAlbumRepository, AlbumRepository>();
-
+            builder.Services.AddScoped<IAlbumService, AlbumService>();
             var app = builder.Build();
 
             // Configure the HTTP request pipeline.
