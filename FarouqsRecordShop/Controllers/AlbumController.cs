@@ -1,4 +1,5 @@
-﻿using FarouqsRecordShop.Services;
+﻿using FarouqsRecordShop.Models;
+using FarouqsRecordShop.Services;
 using Microsoft.AspNetCore.Mvc;
 
 namespace FarouqsRecordShop.Controllers
@@ -12,6 +13,13 @@ namespace FarouqsRecordShop.Controllers
         public AlbumController(IAlbumService service)
         {
             _service = service;
+        }
+
+        [HttpGet]
+        public ActionResult<List<Album>> GetAllAlbums()
+        {
+            var albums = _service.GetAllAlbums();
+            return Ok(albums);
         }
     }
 }

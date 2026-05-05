@@ -22,6 +22,7 @@ namespace FarouqsRecordShop
                 options.UseInMemoryDatabase("RecordShopDb"));
             builder.Services.AddScoped<IAlbumRepository, AlbumRepository>();
             builder.Services.AddScoped<IAlbumService, AlbumService>();
+
             var app = builder.Build();
 
             // Configure the HTTP request pipeline.
