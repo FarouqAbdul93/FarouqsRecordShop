@@ -1,4 +1,7 @@
 
+using FarouqsRecordShop.Models;
+using Microsoft.EntityFrameworkCore;
+
 namespace FarouqsRecordShop
 {
     public class Program
@@ -13,6 +16,8 @@ namespace FarouqsRecordShop
             // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddSwaggerGen();
+            builder.Services.AddDbContext<RecordShopContext>(options =>
+                options.UseInMemoryDatabase("RecordShopDb"));
 
             var app = builder.Build();
 
