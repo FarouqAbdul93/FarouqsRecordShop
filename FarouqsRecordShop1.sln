@@ -7,6 +7,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FarouqsRecordShop", "Farouq
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FarouqsRecordShop.Tests", "FarouqsRecordShop.Tests\FarouqsRecordShop.Tests.csproj", "{F379ED21-8111-4741-9353-5791024AD09B}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RecordShopCLI", "RecordShopCLI\RecordShopCLI.csproj", "{523715B9-2063-480D-AA79-8A97355AF83E}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +23,10 @@ Global
 		{F379ED21-8111-4741-9353-5791024AD09B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F379ED21-8111-4741-9353-5791024AD09B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F379ED21-8111-4741-9353-5791024AD09B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{523715B9-2063-480D-AA79-8A97355AF83E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{523715B9-2063-480D-AA79-8A97355AF83E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{523715B9-2063-480D-AA79-8A97355AF83E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{523715B9-2063-480D-AA79-8A97355AF83E}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
