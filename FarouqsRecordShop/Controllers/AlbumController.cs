@@ -54,5 +54,18 @@ namespace FarouqsRecordShop.Controllers
 
             return Ok(updatedAlbum);
         }
+
+        [HttpDelete("{id}")]
+        public ActionResult DeleteAlbum(int id)
+        {
+            var deleted = _service.DeleteAlbum(id);
+
+            if (!deleted)
+            {
+                return NotFound();
+            }
+
+            return NoContent();
+        }
     }
 }

@@ -95,5 +95,32 @@ namespace FarouqsRecordShop.Tests.RepositoryTests
 
             result.ShouldBeNull();
         }
+
+        [Test]
+        public void DeleteAlbum_DeletesAndReturnsTrue()
+        {
+            var context = GetInMemoryContext();
+
+            context.Albums.Add(new Album { Title = "Divinely Uninspired to a Hellish Extent", Artist = "Lewis Capaldi", Genre = "Pop", ReleaseYear = 2019, Stock = 5 });
+            context.SaveChanges();
+
+            var repo = new AlbumRepository(context);
+
+            var result = repo.DeleteAlbum(1);
+
+            result.ShouldBeTrue();
+            context.Albums.Count().ShouldBe(0);
+        }
+
+        [Test]
+        public void DeleteAlbum_ReturnsFalseWhenNotFound()
+        {
+            var context = GetInMemoryContext();
+            var repo = new AlbumRepository(context);
+
+            var result = repo.DeleteAlbum(99);
+
+            result.ShouldBeFalse();
+        }
     }
 }

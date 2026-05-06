@@ -96,5 +96,33 @@ namespace FarouqsRecordShop.Tests.ServiceTests
 
             result.ShouldBeNull();
         }
+
+        [Test]
+        public void DeleteAlbum_ReturnsTrueWhenDeleted()
+        {
+            var mockRepo = new Mock<IAlbumRepository>();
+
+            mockRepo.Setup(r => r.DeleteAlbum(1)).Returns(true);
+
+            var service = new AlbumService(mockRepo.Object);
+
+            var result = service.DeleteAlbum(1);
+
+            result.ShouldBeTrue();
+        }
+
+        [Test]
+        public void DeleteAlbum_ReturnsFalseWhenNotFound()
+        {
+            var mockRepo = new Mock<IAlbumRepository>();
+
+            mockRepo.Setup(r => r.DeleteAlbum(99)).Returns(false);
+
+            var service = new AlbumService(mockRepo.Object);
+
+            var result = service.DeleteAlbum(99);
+
+            result.ShouldBeFalse();
+        }
     }
 }

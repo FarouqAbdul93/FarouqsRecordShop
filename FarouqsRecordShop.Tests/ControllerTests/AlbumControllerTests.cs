@@ -132,5 +132,37 @@ namespace FarouqsRecordShop.Tests.ControllerTests
             notFoundResult.ShouldNotBeNull();
             notFoundResult.StatusCode.ShouldBe(404);
         }
+
+        [Test]
+        public void DeleteAlbum_Returns204WhenDeleted()
+        {
+            var mockService = new Mock<IAlbumService>();
+
+            mockService.Setup(s => s.DeleteAlbum(1)).Returns(true);
+
+            var controller = new AlbumController(mockService.Object);
+
+            var result = controller.DeleteAlbum(1);
+
+            var noContentResult = result as NoContentResult;
+            noContentResult.ShouldNotBeNull();
+            noContentResult.StatusCode.ShouldBe(204);
+        }
+
+        [Test]
+        public void DeleteAlbum_Returns404WhenNotFound()
+        {
+            var mockService = new Mock<IAlbumService>();
+
+            mockService.Setup(s => s.DeleteAlbum(99)).Returns(false);
+
+            var controller = new AlbumController(mockService.Object);
+
+            var result = controller.DeleteAlbum(99);
+
+            var notFoundResult = result as NotFoundResult;
+            notFoundResult.ShouldNotBeNull();
+            notFoundResult.StatusCode.ShouldBe(404);
+        }
     }
 }

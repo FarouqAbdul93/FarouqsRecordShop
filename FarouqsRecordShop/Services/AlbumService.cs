@@ -31,5 +31,10 @@ namespace FarouqsRecordShop.Services
         {
             return _repository.UpdateAlbum(id, album);
         }
+
+        public bool DeleteAlbum(int id)
+        {
+            return _repository.DeleteAlbum(id);
+        }
     }
 }

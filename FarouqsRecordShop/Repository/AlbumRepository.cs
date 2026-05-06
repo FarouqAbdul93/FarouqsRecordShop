@@ -46,5 +46,19 @@ namespace FarouqsRecordShop.Repository
             _context.SaveChanges();
             return existingAlbum;
         }
+
+        public bool DeleteAlbum(int id)
+        {
+            var album = _context.Albums.FirstOrDefault(a => a.Id == id);
+
+            if (album == null)
+            {
+                return false;
+            }
+
+            _context.Albums.Remove(album);
+            _context.SaveChanges();
+            return true;
+        }
     }
 }
