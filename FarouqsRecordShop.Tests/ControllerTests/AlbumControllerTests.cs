@@ -164,5 +164,116 @@ namespace FarouqsRecordShop.Tests.ControllerTests
             notFoundResult.ShouldNotBeNull();
             notFoundResult.StatusCode.ShouldBe(404);
         }
+
+        [Test]
+        public void GetAlbumsByArtist_Returns200WithAlbums()
+        {
+            var mockService = new Mock<IAlbumService>();
+
+            mockService.Setup(s => s.GetAlbumsByArtist("Jadakiss")).Returns(new List<Album>
+    {
+        new Album { Title = "The Last Kiss", Artist = "Jadakiss", Genre = "Hip-Hop", ReleaseYear = 2009, Stock = 5 }
+    });
+
+            var controller = new AlbumController(mockService.Object);
+
+            var result = controller.GetAlbumsByArtist("Jadakiss");
+
+            var okResult = result.Result as OkObjectResult;
+            okResult.ShouldNotBeNull();
+            okResult.StatusCode.ShouldBe(200);
+
+            var albums = okResult.Value as List<Album>;
+            albums.Count.ShouldBe(1);
+            albums[0].Title.ShouldBe("The Last Kiss");
+        }
+
+        [Test]
+        public void GetAlbumsByGenre_Returns200WithAlbums()
+        {
+            var mockService = new Mock<IAlbumService>();
+
+            mockService.Setup(s => s.GetAlbumsByGenre("Hip-Hop")).Returns(new List<Album>
+    {
+        new Album { Title = "The Last Kiss", Artist = "Jadakiss", Genre = "Hip-Hop", ReleaseYear = 2009, Stock = 5 }
+    });
+
+            var controller = new AlbumController(mockService.Object);
+
+            var result = controller.GetAlbumsByGenre("Hip-Hop");
+
+            var okResult = result.Result as OkObjectResult;
+            okResult.ShouldNotBeNull();
+            okResult.StatusCode.ShouldBe(200);
+
+            var albums = okResult.Value as List<Album>;
+            albums.Count.ShouldBe(1);
+            albums[0].Title.ShouldBe("The Last Kiss");
+        }
+
+        [Test]
+        public void GetAlbumsByReleaseYear_Returns200WithAlbums()
+        {
+            var mockService = new Mock<IAlbumService>();
+
+            mockService.Setup(s => s.GetAlbumsByReleaseYear(2009)).Returns(new List<Album>
+    {
+        new Album { Title = "The Last Kiss", Artist = "Jadakiss", Genre = "Hip-Hop", ReleaseYear = 2009, Stock = 5 }
+    });
+
+            var controller = new AlbumController(mockService.Object);
+
+            var result = controller.GetAlbumsByReleaseYear(2009);
+
+            var okResult = result.Result as OkObjectResult;
+            okResult.ShouldNotBeNull();
+            okResult.StatusCode.ShouldBe(200);
+
+            var albums = okResult.Value as List<Album>;
+            albums.Count.ShouldBe(1);
+            albums[0].Title.ShouldBe("The Last Kiss");
+        }
+
+        [Test]
+        public void GetAlbumByName_Returns200WithAlbum()
+        {
+            var mockService = new Mock<IAlbumService>();
+
+            mockService.Setup(s => s.GetAlbumByName("The Last Kiss")).Returns(new Album
+            {
+                Title = "The Last Kiss",
+                Artist = "Jadakiss",
+                Genre = "Hip-Hop",
+                ReleaseYear = 2009,
+                Stock = 5
+            });
+
+            var controller = new AlbumController(mockService.Object);
+
+            var result = controller.GetAlbumByName("The Last Kiss");
+
+            var okResult = result.Result as OkObjectResult;
+            okResult.ShouldNotBeNull();
+            okResult.StatusCode.ShouldBe(200);
+
+            var album = okResult.Value as Album;
+            album.Title.ShouldBe("The Last Kiss");
+        }
+
+        [Test]
+        public void GetAlbumByName_Returns404WhenNotFound()
+        {
+            var mockService = new Mock<IAlbumService>();
+
+            mockService.Setup(s => s.GetAlbumByName("Unknown")).Returns((Album?)null);
+
+            var controller = new AlbumController(mockService.Object);
+
+            var result = controller.GetAlbumByName("Unknown");
+
+            var notFoundResult = result.Result as NotFoundResult;
+            notFoundResult.ShouldNotBeNull();
+            notFoundResult.StatusCode.ShouldBe(404);
+        }
     }
 }

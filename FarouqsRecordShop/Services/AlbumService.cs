@@ -36,5 +36,25 @@ namespace FarouqsRecordShop.Services
         {
             return _repository.DeleteAlbum(id);
         }
+
+        public List<Album> GetAlbumsByArtist(string artist)
+        {
+            return _repository.GetAlbumsByArtist(artist);
+        }
+
+        public List<Album> GetAlbumsByGenre(string genre)
+        {
+            return _repository.GetAlbumsByGenre(genre);
+        }
+
+        public List<Album> GetAlbumsByReleaseYear(int year)
+        {
+            return _repository.GetAlbumsByReleaseYear(year);
+        }
+
+        public Album? GetAlbumByName(string title)
+        {
+            return _repository.GetAlbumByName(title);
+        }
     }
 }

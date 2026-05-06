@@ -60,5 +60,25 @@ namespace FarouqsRecordShop.Repository
             _context.SaveChanges();
             return true;
         }
+
+        public List<Album> GetAlbumsByArtist(string artist)
+        {
+            return _context.Albums.Where(a => a.Artist == artist).ToList();
+        }
+
+        public List<Album> GetAlbumsByGenre(string genre)
+        {
+            return _context.Albums.Where(a => a.Genre == genre).ToList();
+        }
+
+        public List<Album> GetAlbumsByReleaseYear(int year)
+        {
+            return _context.Albums.Where(a => a.ReleaseYear == year).ToList();
+        }
+
+        public Album? GetAlbumByName(string title)
+        {
+            return _context.Albums.FirstOrDefault(a => a.Title == title);
+        }
     }
 }

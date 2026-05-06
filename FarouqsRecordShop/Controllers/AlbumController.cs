@@ -67,5 +67,39 @@ namespace FarouqsRecordShop.Controllers
 
             return NoContent();
         }
+
+        [HttpGet("artist/{artist}")]
+        public ActionResult<List<Album>> GetAlbumsByArtist(string artist)
+        {
+            var albums = _service.GetAlbumsByArtist(artist);
+            return Ok(albums);
+        }
+
+        [HttpGet("genre/{genre}")]
+        public ActionResult<List<Album>> GetAlbumsByGenre(string genre)
+        {
+            var albums = _service.GetAlbumsByGenre(genre);
+            return Ok(albums);
+        }
+
+        [HttpGet("year/{year}")]
+        public ActionResult<List<Album>> GetAlbumsByReleaseYear(int year)
+        {
+            var albums = _service.GetAlbumsByReleaseYear(year);
+            return Ok(albums);
+        }
+
+        [HttpGet("name/{title}")]
+        public ActionResult<Album> GetAlbumByName(string title)
+        {
+            var album = _service.GetAlbumByName(title);
+
+            if (album == null)
+            {
+                return NotFound();
+            }
+
+            return Ok(album);
+        }
     }
 }

@@ -122,5 +122,81 @@ namespace FarouqsRecordShop.Tests.RepositoryTests
 
             result.ShouldBeFalse();
         }
+
+        [Test]
+        public void GetAlbumsByArtist_ReturnsCorrectAlbums()
+        {
+            var context = GetInMemoryContext();
+
+            context.Albums.AddRange(new List<Album>
+    {
+        new Album { Title = "The Last Kiss", Artist = "Jadakiss", Genre = "Hip-Hop", ReleaseYear = 2009, Stock = 5 },
+        new Album { Title = "The Documentary", Artist = "The Game", Genre = "Hip-Hop", ReleaseYear = 2005, Stock = 5 }
+    });
+            context.SaveChanges();
+
+            var repo = new AlbumRepository(context);
+
+            var result = repo.GetAlbumsByArtist("Jadakiss");
+
+            result.Count.ShouldBe(1);
+            result[0].Title.ShouldBe("The Last Kiss");
+        }
+
+        [Test]
+        public void GetAlbumsByGenre_ReturnsCorrectAlbums()
+        {
+            var context = GetInMemoryContext();
+
+            context.Albums.AddRange(new List<Album>
+    {
+        new Album { Title = "The Last Kiss", Artist = "Jadakiss", Genre = "Hip-Hop", ReleaseYear = 2009, Stock = 5 },
+        new Album { Title = "Thriller", Artist = "Michael Jackson", Genre = "Pop", ReleaseYear = 1982, Stock = 3 }
+    });
+            context.SaveChanges();
+
+            var repo = new AlbumRepository(context);
+
+            var result = repo.GetAlbumsByGenre("Hip-Hop");
+
+            result.Count.ShouldBe(1);
+            result[0].Title.ShouldBe("The Last Kiss");
+        }
+
+        [Test]
+        public void GetAlbumsByReleaseYear_ReturnsCorrectAlbums()
+        {
+            var context = GetInMemoryContext();
+
+            context.Albums.AddRange(new List<Album>
+    {
+        new Album { Title = "The Last Kiss", Artist = "Jadakiss", Genre = "Hip-Hop", ReleaseYear = 2009, Stock = 5 },
+        new Album { Title = "The Documentary", Artist = "The Game", Genre = "Hip-Hop", ReleaseYear = 2005, Stock = 5 }
+    });
+            context.SaveChanges();
+
+            var repo = new AlbumRepository(context);
+
+            var result = repo.GetAlbumsByReleaseYear(2009);
+
+            result.Count.ShouldBe(1);
+            result[0].Title.ShouldBe("The Last Kiss");
+        }
+
+        [Test]
+        public void GetAlbumByName_ReturnsCorrectAlbum()
+        {
+            var context = GetInMemoryContext();
+
+            context.Albums.Add(new Album { Title = "The Last Kiss", Artist = "Jadakiss", Genre = "Hip-Hop", ReleaseYear = 2009, Stock = 5 });
+            context.SaveChanges();
+
+            var repo = new AlbumRepository(context);
+
+            var result = repo.GetAlbumByName("The Last Kiss");
+
+            result.ShouldNotBeNull();
+            result.Title.ShouldBe("The Last Kiss");
+        }
     }
 }

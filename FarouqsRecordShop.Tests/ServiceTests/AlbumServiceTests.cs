@@ -124,5 +124,81 @@ namespace FarouqsRecordShop.Tests.ServiceTests
 
             result.ShouldBeFalse();
         }
+
+        [Test]
+        public void GetAlbumsByArtist_ReturnsCorrectAlbums()
+        {
+            var mockRepo = new Mock<IAlbumRepository>();
+
+            mockRepo.Setup(r => r.GetAlbumsByArtist("Jadakiss")).Returns(new List<Album>
+    {
+        new Album { Title = "The Last Kiss", Artist = "Jadakiss", Genre = "Hip-Hop", ReleaseYear = 2009, Stock = 5 }
+    });
+
+            var service = new AlbumService(mockRepo.Object);
+
+            var result = service.GetAlbumsByArtist("Jadakiss");
+
+            result.Count.ShouldBe(1);
+            result[0].Title.ShouldBe("The Last Kiss");
+        }
+
+        [Test]
+        public void GetAlbumsByGenre_ReturnsCorrectAlbums()
+        {
+            var mockRepo = new Mock<IAlbumRepository>();
+
+            mockRepo.Setup(r => r.GetAlbumsByGenre("Hip-Hop")).Returns(new List<Album>
+    {
+        new Album { Title = "The Last Kiss", Artist = "Jadakiss", Genre = "Hip-Hop", ReleaseYear = 2009, Stock = 5 }
+    });
+
+            var service = new AlbumService(mockRepo.Object);
+
+            var result = service.GetAlbumsByGenre("Hip-Hop");
+
+            result.Count.ShouldBe(1);
+            result[0].Title.ShouldBe("The Last Kiss");
+        }
+
+        [Test]
+        public void GetAlbumsByReleaseYear_ReturnsCorrectAlbums()
+        {
+            var mockRepo = new Mock<IAlbumRepository>();
+
+            mockRepo.Setup(r => r.GetAlbumsByReleaseYear(2009)).Returns(new List<Album>
+    {
+        new Album { Title = "The Last Kiss", Artist = "Jadakiss", Genre = "Hip-Hop", ReleaseYear = 2009, Stock = 5 }
+    });
+
+            var service = new AlbumService(mockRepo.Object);
+
+            var result = service.GetAlbumsByReleaseYear(2009);
+
+            result.Count.ShouldBe(1);
+            result[0].Title.ShouldBe("The Last Kiss");
+        }
+
+        [Test]
+        public void GetAlbumByName_ReturnsCorrectAlbum()
+        {
+            var mockRepo = new Mock<IAlbumRepository>();
+
+            mockRepo.Setup(r => r.GetAlbumByName("The Last Kiss")).Returns(new Album
+            {
+                Title = "The Last Kiss",
+                Artist = "Jadakiss",
+                Genre = "Hip-Hop",
+                ReleaseYear = 2009,
+                Stock = 5
+            });
+
+            var service = new AlbumService(mockRepo.Object);
+
+            var result = service.GetAlbumByName("The Last Kiss");
+
+            result.ShouldNotBeNull();
+            result.Title.ShouldBe("The Last Kiss");
+        }
     }
 }
