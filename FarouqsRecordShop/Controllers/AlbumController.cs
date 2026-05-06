@@ -29,7 +29,7 @@ namespace FarouqsRecordShop.Controllers
 
             if (album == null)
             {
-                return NotFound();
+                return NotFound(new { message = $"Album with ID {id} was not found."});
             }
 
             return Ok(album);
@@ -49,7 +49,7 @@ namespace FarouqsRecordShop.Controllers
 
             if (updatedAlbum == null)
             {
-                return NotFound();
+                return NotFound(new { message = $"Album with ID {id} was not found."});
             }
 
             return Ok(updatedAlbum);
@@ -62,7 +62,7 @@ namespace FarouqsRecordShop.Controllers
 
             if (!deleted)
             {
-                return NotFound();
+                return NotFound(new { message = $"Album with ID {id} was not found."});
             }
 
             return NoContent();
@@ -72,6 +72,10 @@ namespace FarouqsRecordShop.Controllers
         public ActionResult<List<Album>> GetAlbumsByArtist(string artist)
         {
             var albums = _service.GetAlbumsByArtist(artist);
+            if (albums.Count == 0)
+            {
+                return NotFound(new { message = $"No albums found for artist '{artist}'." });
+            }
             return Ok(albums);
         }
 
@@ -79,6 +83,10 @@ namespace FarouqsRecordShop.Controllers
         public ActionResult<List<Album>> GetAlbumsByGenre(string genre)
         {
             var albums = _service.GetAlbumsByGenre(genre);
+            if (albums.Count == 0)
+            {
+                return NotFound(new { message = $"No albums found for genre '{genre}'." });
+            }
             return Ok(albums);
         }
 
@@ -86,6 +94,10 @@ namespace FarouqsRecordShop.Controllers
         public ActionResult<List<Album>> GetAlbumsByReleaseYear(int year)
         {
             var albums = _service.GetAlbumsByReleaseYear(year);
+            if (albums.Count == 0)
+            {
+                return NotFound(new { message = $"No albums found for release year '{year}'." });
+            }
             return Ok(albums);
         }
 
@@ -96,7 +108,7 @@ namespace FarouqsRecordShop.Controllers
 
             if (album == null)
             {
-                return NotFound();
+                return NotFound(new { message = $"Album with name '{title}' was not found."});
             }
 
             return Ok(album);

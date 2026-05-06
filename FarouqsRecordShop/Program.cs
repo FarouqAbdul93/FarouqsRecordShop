@@ -1,8 +1,9 @@
-using Microsoft.Extensions.Diagnostics.HealthChecks;
+using FarouqsRecordShop.Middleware;
 using FarouqsRecordShop.Models;
 using FarouqsRecordShop.Repository;
 using FarouqsRecordShop.Services;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Diagnostics.HealthChecks;
 
 namespace FarouqsRecordShop
 {
@@ -37,6 +38,7 @@ namespace FarouqsRecordShop
             }
 
             builder.Services.AddHealthChecks().AddDbContextCheck<RecordShopContext>();
+            builder.Services.AddTransient<ErrorHandlingMiddleware>();
 
             var app = builder.Build();
 
