@@ -8,5 +8,6 @@ namespace FarouqsRecordShop.Repository
 
         Album? GetAlbumById(int id);
         Album AddAlbum(Album album);
+        Album? UpdateAlbum(int id, Album album);
     }
 }

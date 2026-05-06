@@ -95,5 +95,42 @@ namespace FarouqsRecordShop.Tests.ControllerTests
             var album = createdResult.Value as Album;
             album.Title.ShouldBe("Konvicted");
         }
+
+        [Test]
+        public void UpdateAlbum_Returns200WithUpdatedAlbum()
+        {
+            var mockService = new Mock<IAlbumService>();
+
+            var updatedAlbum = new Album { Id = 1, Title = "Divide (Deluxe)", Artist = "Ed Sheeran", Genre = "Pop", ReleaseYear = 2017, Stock = 10 };
+
+            mockService.Setup(s => s.UpdateAlbum(1, updatedAlbum)).Returns(updatedAlbum);
+
+            var controller = new AlbumController(mockService.Object);
+
+            var result = controller.UpdateAlbum(1, updatedAlbum);
+
+            var okResult = result.Result as OkObjectResult;
+            okResult.ShouldNotBeNull();
+            okResult.StatusCode.ShouldBe(200);
+
+            var album = okResult.Value as Album;
+            album.Title.ShouldBe("Divide (Deluxe)");
+        }
+
+        [Test]
+        public void UpdateAlbum_Returns404WhenNotFound()
+        {
+            var mockService = new Mock<IAlbumService>();
+
+            mockService.Setup(s => s.UpdateAlbum(99, It.IsAny<Album>())).Returns((Album?)null);
+
+            var controller = new AlbumController(mockService.Object);
+
+            var result = controller.UpdateAlbum(99, new Album());
+
+            var notFoundResult = result.Result as NotFoundResult;
+            notFoundResult.ShouldNotBeNull();
+            notFoundResult.StatusCode.ShouldBe(404);
+        }
     }
 }

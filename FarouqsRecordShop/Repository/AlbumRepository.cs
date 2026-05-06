@@ -27,5 +27,24 @@ namespace FarouqsRecordShop.Repository
             _context.SaveChanges();
             return album;
         }
+
+        public Album? UpdateAlbum(int id, Album album)
+        {
+            var existingAlbum = _context.Albums.FirstOrDefault(a => a.Id == id);
+
+            if (existingAlbum == null)
+            {
+                return null;
+            }
+
+            existingAlbum.Title = album.Title;
+            existingAlbum.Artist = album.Artist;
+            existingAlbum.Genre = album.Genre;
+            existingAlbum.ReleaseYear = album.ReleaseYear;
+            existingAlbum.Stock = album.Stock;
+
+            _context.SaveChanges();
+            return existingAlbum;
+        }
     }
 }

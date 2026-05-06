@@ -65,5 +65,36 @@ namespace FarouqsRecordShop.Tests.ServiceTests
             result.ShouldNotBeNull();
             result.Title.ShouldBe("Konvicted");
         }
+
+        [Test]
+        public void UpdateAlbum_ReturnsUpdatedAlbum()
+        {
+            var mockRepo = new Mock<IAlbumRepository>();
+
+            var updatedAlbum = new Album { Id = 1, Title = "Divide (Deluxe)", Artist = "Ed Sheeran", Genre = "Pop", ReleaseYear = 2017, Stock = 10 };
+
+            mockRepo.Setup(r => r.UpdateAlbum(1, updatedAlbum)).Returns(updatedAlbum);
+
+            var service = new AlbumService(mockRepo.Object);
+
+            var result = service.UpdateAlbum(1, updatedAlbum);
+
+            result.ShouldNotBeNull();
+            result.Title.ShouldBe("Divide (Deluxe)");
+        }
+
+        [Test]
+        public void UpdateAlbum_ReturnsNullWhenNotFound()
+        {
+            var mockRepo = new Mock<IAlbumRepository>();
+
+            mockRepo.Setup(r => r.UpdateAlbum(99, It.IsAny<Album>())).Returns((Album?)null);
+
+            var service = new AlbumService(mockRepo.Object);
+
+            var result = service.UpdateAlbum(99, new Album());
+
+            result.ShouldBeNull();
+        }
     }
 }

@@ -65,5 +65,35 @@ namespace FarouqsRecordShop.Tests.RepositoryTests
             result.Title.ShouldBe("Konvicted");
             context.Albums.Count().ShouldBe(1);
         }
+
+        [Test]
+        public void UpdateAlbum_UpdatesAndReturnsAlbum()
+        {
+            var context = GetInMemoryContext();
+
+            context.Albums.Add(new Album { Title = "Divide", Artist = "Ed Sheeran", Genre = "Pop", ReleaseYear = 2017, Stock = 5 });
+            context.SaveChanges();
+
+            var repo = new AlbumRepository(context);
+
+            var updatedAlbum = new Album { Title = "Divide (Deluxe)", Artist = "Ed Sheeran", Genre = "Pop", ReleaseYear = 2017, Stock = 10 };
+
+            var result = repo.UpdateAlbum(1, updatedAlbum);
+
+            result.ShouldNotBeNull();
+            result.Title.ShouldBe("Divide (Deluxe)");
+            result.Stock.ShouldBe(10);
+        }
+
+        [Test]
+        public void UpdateAlbum_ReturnsNullWhenNotFound()
+        {
+            var context = GetInMemoryContext();
+            var repo = new AlbumRepository(context);
+
+            var result = repo.UpdateAlbum(99, new Album { Title = "Divide", Artist = "Ed Sheeran", Genre = "Pop", ReleaseYear = 2017, Stock = 5 });
+
+            result.ShouldBeNull();
+        }
     }
 }
