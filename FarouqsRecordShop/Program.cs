@@ -1,4 +1,4 @@
-
+using Microsoft.Extensions.Diagnostics.HealthChecks;
 using FarouqsRecordShop.Models;
 using FarouqsRecordShop.Repository;
 using FarouqsRecordShop.Services;
@@ -36,6 +36,8 @@ namespace FarouqsRecordShop
                     options.UseSqlServer(builder.Configuration.GetConnectionString("RecordShopDb")));
             }
 
+            builder.Services.AddHealthChecks().AddDbContextCheck<RecordShopContext>();
+
             var app = builder.Build();
 
             using (var scope = app.Services.CreateScope())
@@ -64,7 +66,7 @@ namespace FarouqsRecordShop
             app.UseHttpsRedirection();
 
             app.UseAuthorization();
-
+            app.MapHealthChecks("/health");
 
             app.MapControllers();
 
