@@ -12,6 +12,8 @@ namespace FarouqsRecordShop.Services
         List<Album> GetAlbumsByArtist(string artist);
         List<Album> GetAlbumsByGenre(string genre);
         List<Album> GetAlbumsByReleaseYear(int year);
+        List<Album> SearchAlbumsByTitle(string title);
+        List<Album> SearchAlbumsByArtist(string artist);
         Album? GetAlbumByName(string title);
     }
 }

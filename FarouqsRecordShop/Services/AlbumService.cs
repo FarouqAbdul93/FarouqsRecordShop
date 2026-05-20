@@ -52,6 +52,16 @@ namespace FarouqsRecordShop.Services
             return _repository.GetAlbumsByReleaseYear(year);
         }
 
+        public List<Album> SearchAlbumsByTitle(string title)
+        {
+            return _repository.SearchAlbumsByTitle(title);
+        }
+
+        public List<Album> SearchAlbumsByArtist(string artist)
+        {
+            return _repository.SearchAlbumsByArtist(artist);
+        }
+
         public Album? GetAlbumByName(string title)
         {
             return _repository.GetAlbumByName(title);

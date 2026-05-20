@@ -101,6 +101,28 @@ namespace FarouqsRecordShop.Controllers
             return Ok(albums);
         }
 
+        [HttpGet("search/title/{title}")]
+        public ActionResult<List<Album>> SearchAlbumsByTitle(string title)
+        {
+            var albums = _service.SearchAlbumsByTitle(title);
+            if (albums.Count == 0)
+            {
+                return NotFound(new { message = $"No albums found with title containing '{title}'." });
+            }
+            return Ok(albums);
+        }
+
+        [HttpGet("search/artist/{artist}")]
+        public ActionResult<List<Album>> SearchAlbumsByArtist(string artist)
+        {
+            var albums = _service.SearchAlbumsByArtist(artist);
+            if (albums.Count == 0)
+            {
+                return NotFound(new { message = $"No albums found with artist containing '{artist}'." });
+            }
+            return Ok(albums);
+        }
+
         [HttpGet("name/{title}")]
         public ActionResult<Album> GetAlbumByName(string title)
         {

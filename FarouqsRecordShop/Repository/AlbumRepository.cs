@@ -74,6 +74,17 @@ namespace FarouqsRecordShop.Repository
         public List<Album> GetAlbumsByReleaseYear(int year)
         {
             return _context.Albums.Where(a => a.ReleaseYear == year).ToList();
+
+        }
+
+        public List<Album> SearchAlbumsByTitle(string title)
+        {
+            return _context.Albums.Where(a => a.Title.Contains(title)).ToList();
+        }
+
+        public List<Album> SearchAlbumsByArtist(string artist)
+        {
+            return _context.Albums.Where(a => a.Artist.Contains(artist)).ToList();
         }
 
         public Album? GetAlbumByName(string title)
